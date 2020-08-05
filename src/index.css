@@ -1,0 +1,27 @@
+
+
+.cssgeneral {
+    border: solid 1px black;
+    color: black !important;
+}
+
+.module {
+    border: solid 1px blue;
+    color: blue !important;
+}
+
+
+.bg1 {
+    display: block;
+    height: 200px;
+    width: 200px;
+    background-image: url('./imgs/graphql.svg');
+    border: solid 1px black;
+    color: black !important;
+}
+
+.img1 {
+    height: 200px;
+    width: 200px;
+    border: solid 1px black;
+}
