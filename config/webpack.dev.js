@@ -86,7 +86,20 @@ module.exports = {
                 test: /\.scss$/i,
                 use: [
                     "style-loader",
-                    "css-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: {
+                                mode: (resourcePath) => {
+                                    if (/global.scss$/i.test(resourcePath)) {
+                                        return 'global';
+                                    }
+                                    return 'local';
+                                },
+                                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                            },
+                        }
+                    },
                     "sass-loader"
                 ]
             },
