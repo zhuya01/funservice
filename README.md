@@ -27,7 +27,7 @@ yarn install
 
 ## Files
 
-- `index.js` - 组建必须带有 `default` export.
+- `react-draft-wysiwyg.js` - 组建必须带有 `default` export.
 
 ## Building
 

@@ -1,0 +1,30 @@
+.clear{
+    clear: both;
+}
+.header{
+    background: white;
+    height: 110px;
+    overflow: hidden;
+}
+.contentArea{
+    margin: 0px auto;
+    overflow: hidden;
+    width: 95%;
+}
+.imageUpload{
+    float: left;
+    position: relative;
+    top: 2px;
+}
+.imageUpload :global(.ant-upload.ant-upload-select-picture-card){
+    margin:0 0 0 0;
+}
+.header_right{
+    width: 87%;
+    float: left;
+    display: inline-block;
+    overflow: hidden;
+}
+.header_right textarea{
+    height: 74px;
+}
