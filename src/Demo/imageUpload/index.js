@@ -45,11 +45,6 @@ export default function () {
         </div>
     );
 
-    const[state,setState]=useState({
-        a:'1',
-        b:'2'
-    })
-    console.log(state);
     const session = useContext(SessionContext);
     //文件上传
     const uploadprops = {
@@ -100,8 +95,6 @@ export default function () {
         },
     };
 
-    let a='a'
-    let b='b'
     return (
         <div className="clearfix">
             <Upload
@@ -124,5 +117,4 @@ export default function () {
             </Modal>
         </div>
     );
-
 }

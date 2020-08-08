@@ -1,0 +1,17 @@
+.pic{
+    height: 120px;
+    width: 190px;
+    background: pink;
+}
+.title{
+
+}
+.abstract{
+    display: inline-block;
+    width: 95%;
+    overflow: hidden;
+    word-break: break-word;
+    height: 40px;
+    text-overflow:ellipsis;
+    margin-bottom: 0;
+}

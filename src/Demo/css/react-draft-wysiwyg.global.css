@@ -895,9 +895,6 @@
 .wrapperClassName{
   background: red;
 }
-.tox-notifications-container{
-  display: none;
-}
 .aaa .tox-statusbar{
   display: inline-block;
 }

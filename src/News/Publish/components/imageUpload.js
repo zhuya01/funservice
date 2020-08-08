@@ -15,8 +15,9 @@ function getBase64(file) {
     });
 }
 
-export default function () {
+export default function (props) {
 
+    const onChange=props.onChange
     const [previewVisible,setpreviewVisible]=useState(false)
     const [previewImage,setpreviewImage]=useState('')
     const [previewTitle,setpreviewTitle]=useState('')
@@ -34,8 +35,10 @@ export default function () {
     };
 
     const handleChange = (fileList) => {
+        onChange(fileList)
         console.log(fileList);
         setfileList(fileList.fileList)
+
     };
 
     const uploadButton = (

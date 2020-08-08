@@ -1,3 +1,4 @@
+/*
 import React, {useState} from 'react'
 
 import {Editor} from 'react-draft-wysiwyg';
@@ -26,13 +27,14 @@ export default function F() {
                 editorClassName="editorClassName"
                 onEditorStateChange={onEditorStateChange}
             />
-            {/*<textarea
+            {/!*<textarea
                 style={{height:'300px',width:'500px'}}
                 disabled
                 value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
             />
-            <div dangerouslySetInnerHTML={{__html:draftToHtml(convertToRaw(editorState.getCurrentContent()))}}></div>*/
+            <div dangerouslySetInnerHTML={{__html:draftToHtml(convertToRaw(editorState.getCurrentContent()))}}></div>*!/
             }
         </div>
     )
 }
+*/
