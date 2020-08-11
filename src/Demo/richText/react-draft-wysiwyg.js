@@ -1,40 +1,35 @@
-/*
-import React, {useState} from 'react'
+import React from 'react'
+import {Button, Col, Form, Input} from "antd";
 
-import {Editor} from 'react-draft-wysiwyg';
-import {EditorState, convertToRaw} from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
-
-import '../css/react-draft-wysiwyg.global.css'
-
-
-export default function F() {
-
-    const [editorState, setEditorState] = useState(EditorState.createEmpty())
-
-    const onEditorStateChange = (editorState) => {
-        setEditorState(editorState)
+export default  function () {
+    function onFinish(e) {
+        console.log('suceeess',e);
     }
-
-    console.log(htmlToDraft(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
-    return (
+    return(
         <div>
-            <Editor
-                editorState={editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                onEditorStateChange={onEditorStateChange}
-            />
-            {/!*<textarea
-                style={{height:'300px',width:'500px'}}
-                disabled
-                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-            />
-            <div dangerouslySetInnerHTML={{__html:draftToHtml(convertToRaw(editorState.getCurrentContent()))}}></div>*!/
-            }
+            <Form
+                onFinish={onFinish}
+                name="basic"
+            >
+                <Form.Item>
+                    <Input/>
+                </Form.Item>
+            </Form>
+            <Form
+                onFinish={onFinish}
+                name="basic2"
+            >
+                <Form.Item>
+                  <Input/>
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        確定
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
+
+
     )
 }
-*/

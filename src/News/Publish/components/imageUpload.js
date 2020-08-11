@@ -17,11 +17,19 @@ function getBase64(file) {
 
 export default function (props) {
 
+    const pic=props.pic//默认图片
     const onChange=props.onChange
     const [previewVisible,setpreviewVisible]=useState(false)
     const [previewImage,setpreviewImage]=useState('')
     const [previewTitle,setpreviewTitle]=useState('')
-    const [fileList,setfileList]=useState([])
+    let picArr=pic?[{
+        uid:'1',
+        status: 'done',
+        url: '/storage/'+pic,
+    }]:[]
+    const [fileList,setfileList]=useState(picArr)
+
+
 
     const handleCancel = () => setpreviewVisible(false)
 
@@ -36,7 +44,6 @@ export default function (props) {
 
     const handleChange = (fileList) => {
         onChange(fileList)
-        console.log(fileList);
         setfileList(fileList.fileList)
 
     };
@@ -55,7 +62,6 @@ export default function (props) {
         name: 'file',
         beforeUpload(file, fileList) {
 
-            console.log("beforeUpload:", file, fileList);
         },
         customRequest({
                           action,
@@ -80,7 +86,6 @@ export default function (props) {
                         onError(errors, response);
                     } else {
                         onSuccess(response);
-                        console.log(response);
                     }
                 },
                 onError
@@ -89,7 +94,7 @@ export default function (props) {
         },
         onChange(info) {
             if (info.file.status !== 'uploading') {
-                // console.log("onChange:", info.file, info.fileList);
+
             }
             if (info.file.status === 'done') {
                 message.success(`${info.file.name} file uploaded successfully`);
@@ -106,7 +111,7 @@ export default function (props) {
             <Upload
                 {...uploadprops}
                 listType="picture-card"
-                // fileList={fileList}
+                fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
                 accept="image/png, image/jpeg"

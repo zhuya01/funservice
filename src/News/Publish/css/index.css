@@ -18,6 +18,12 @@
 }
 .imageUpload :global(.ant-upload.ant-upload-select-picture-card){
     margin:0 0 0 0;
+    height: 130px;
+    width: 125px;
+}
+.imageUpload:global(.ant-upload-list-picture-card .ant-upload-list-item:hover, .ant-upload-list-picture .ant-upload-list-item:hover){
+    height: 130px;
+    width: 125px;
 }
 .header_right{
     width: 87%;

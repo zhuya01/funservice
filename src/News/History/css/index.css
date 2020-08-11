@@ -1,7 +1,16 @@
 .pic{
     height: 120px;
     width: 190px;
-    background: pink;
+    text-align: center;
+    line-height: 120px;
+}
+.noPic{
+    height: 120px;
+    width: 190px;
+    text-align: center;
+    line-height: 120px;
+    background: url("../../../asseets/img/noPic.jpg") no-repeat;
+    background-size: contain;
 }
 .title{
 
@@ -14,4 +23,8 @@
     height: 40px;
     text-overflow:ellipsis;
     margin-bottom: 0;
+}
+.action{
+    line-height: 120px;
+    font-size: 15px;
 }
