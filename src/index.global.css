@@ -1,4 +1,13 @@
-.cssglobal {
-    border: solid 1px red;
-    color: red !important;;
+html,body{
+    height: 100%;
+    width: 100%;
+    min-width:1000px;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+/*去除tinyMce提示*/
+.tox-notifications-container{
+    display: none;
 }
