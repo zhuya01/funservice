@@ -315,8 +315,8 @@ function Page(props) {
                                             }
                                         >
                                             <Option value="cmstype-1">类型a</Option>
-                                            <Option value="cmstype-2">类型b</Option>
-                                            <Option value="cmstype-3">类型c</Option>
+                                            <Option value="cmstype-1">类型b</Option>
+                                            <Option value="cmstype-1">类型c</Option>
                                         </Select>
                                     </Form.Item>
 
