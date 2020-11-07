@@ -121,8 +121,9 @@ function Page(props) {
         //状态格式化
         formInfo.status===true?formInfo.status='ENABLE':formInfo.status='DISABLE'
         //封面格式化
+        console.log('formInfo.pic',formInfo.pic);
         formInfo.pic?
-            formInfo.pic=formInfo.pic.fileList[0].response.singleUpload.hash
+            (formInfo.pic=formInfo.pic.fileList?formInfo.pic.fileList[0].response.singleUpload.hash:formInfo.pic)
             :
             formInfo.pic=''
         console.log('Success:', formInfo);
@@ -144,7 +145,6 @@ function Page(props) {
         else {
             formInfo.attachment=[]
         }
-
         if(id){
             //更新新闻
             updateCms(id,formInfo, session.environment, (response, errors) => {
@@ -315,8 +315,8 @@ function Page(props) {
                                             }
                                         >
                                             <Option value="cmstype-1">类型a</Option>
-                                            <Option value="cmstype-2">类型b</Option>
-                                            <Option value="cmstype-3">类型c</Option>
+                                            <Option value="cmstype-1">类型b</Option>
+                                            <Option value="cmstype-1">类型c</Option>
                                         </Select>
                                     </Form.Item>
 
