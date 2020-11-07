@@ -27,18 +27,10 @@ export default function App(props) {
                     initialValue={content}
                     init={{
                         height: 500,
-                        // menubar: 'table',
-                        // menubar: 'file edit insert view format table tools help',
+                        menubar: '',
                         language: 'zh_CN',
-                        // plugins: [
-                        //     'advlist autolink lists link image charmap print preview anchor',
-                        //     'searchreplace visualblocks code fullscreen',
-                        //     'insertdatetime media table paste code help wordcount table advtable'
-                        // ],
-                        // toolbar:
-                        //     'undo redo | formatselect | bold italic backcolor | \
-                        //     alignleft aligncenter alignright alignjustify | \
-                        //     bullist numlist outdent indent | removeformat | image',
+                        plugins: 'powerpaste importcss  searchreplace directionality  visualblocks visualchars charmap hr  advlist lists checklist wordcount tinymcespellchecker  imagetools permanentpen pageembed charmap tinycomments mentions linkchecker advtable',
+                        toolbar: 'fontselect fontsizeselect formatselect | bold italic underline strikethrough| forecolor backcolor |alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist ',
                         images_upload_handler: function (blobInfo, success, failure, progress) {
 
                             const filename = 'file'
@@ -59,6 +51,8 @@ export default function App(props) {
                                 },
                             )
                         },
+                        branding: false,
+                        font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats;'
                     }}
                     onEditorChange={handleEditorChange}
                 />
