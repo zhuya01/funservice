@@ -22,20 +22,18 @@ export default function App(props) {
         content='文件选项可以预览/打印'
     return (
         <div>
-            <div>
+            <div >
                 <Editor
                     initialValue={content}
                     init={{
                         height: 500,
-                        menubar: '',
+                        width:1150,
                         language: 'zh_CN',
                         plugins: 'powerpaste importcss  searchreplace directionality  visualblocks visualchars charmap hr  advlist lists checklist wordcount tinymcespellchecker  imagetools permanentpen pageembed charmap tinycomments mentions linkchecker advtable',
                         toolbar: 'fontselect fontsizeselect formatselect | bold italic underline strikethrough| forecolor backcolor |alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist ',
                         images_upload_handler: function (blobInfo, success, failure, progress) {
-
                             const filename = 'file'
                             const file = blobInfo.blob()
-
                             const inputs = {[filename]: null}
                             const uploadables = {[filename]: file}
                             UploadPackage.commit(

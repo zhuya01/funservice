@@ -1,7 +1,7 @@
 import { commitMutation, graphql } from 'react-relay'
 
 const mutation = graphql`
-  mutation UploadPackage_News_Publish_Mutation($file: Upload!) {
+  mutation UploadPackage_Mutation($file: Upload!) {
     singleUpload(file: $file) {
       id
       hash
