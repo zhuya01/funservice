@@ -115,7 +115,6 @@ function Detail(props) {
                             <Link to="/knowledge.Knowledge/List" className="watchkeerper_headgzt"><b>知识库列表</b></Link>
                             <Breadcrumb.Separator />
                             </Breadcrumb.Item>
-
                             </Breadcrumb>
                         </Layout>
             <div className={indexCss.content}>
