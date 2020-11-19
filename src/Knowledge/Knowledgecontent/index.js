@@ -116,6 +116,7 @@ function Detail(props) {
                             <Breadcrumb.Separator />
                             </Breadcrumb.Item>
                             </Breadcrumb>
+                            
                         </Layout>
             <div className={indexCss.content}>
                 <Row>
