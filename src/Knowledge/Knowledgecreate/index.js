@@ -1,10 +1,11 @@
 //react
 import React,{useContext,useState} from 'react'
-import {SessionContext} from 'funweb-lib';
+import {SessionContext} from 'funweb-lib'
 import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 //antd
-import {Layout, Input, Row, Col, Select, Button, Form,message,Upload} from 'antd';
+import {Layout, Input, Row, Col, Select, Button, Form,message,Upload,Breadcrumb} from 'antd';
 //css
 import indexCss from './css/index.css'
 //components
@@ -18,6 +19,9 @@ const {Content} = Layout;
 const {Option} = Select;
 //页面
 export default function Page(props) {
+    const formCol_labelCol=props.formCol_labelCol//表单Col中标签样式
+    const formCol_wrapperCol=props.formCol_wrapperCol//表单Col中内容样式
+    const col_span=props.col_span//col样式
     const uploadprops = {
         name: 'file',
         beforeUpload(file, fileList) {
@@ -68,6 +72,7 @@ export default function Page(props) {
     
     //表单提交
     const onFinish = (formInfo) => {
+        console.log(formInfo)
         //排序格式化
         formInfo.order?
             formInfo.order=parseInt(formInfo.order)
@@ -75,13 +80,6 @@ export default function Page(props) {
             formInfo.order=0
         //状态格式化
         formInfo.status===true?formInfo.status='ENABLE':formInfo.status='DISABLE'
-        //封面格式化
-        console.log('formInfo.pic',formInfo.pic);
-        formInfo.pic?
-            (formInfo.pic=formInfo.pic.fileList?formInfo.pic.fileList[0].response.singleUpload.hash:formInfo.pic)
-            :
-            formInfo.pic=''
-        console.log('Success:', formInfo);
         //附件格式化
         if(formInfo.annexCreate){
             formInfo.annexCreate=formInfo.annexCreate.map(val=>{
@@ -102,7 +100,7 @@ export default function Page(props) {
         }
         
         if(id){
-            //更新新闻
+            //更新知识库
             updateBase(id,formInfo, session.environment, (response, errors) => {
                     if (errors) {
                         message.error(errors[0].message);
@@ -120,7 +118,7 @@ export default function Page(props) {
                 })
         }
         else {
-            //发布新闻
+            //发布知识库
             createBase(formInfo, session.environment, (response, errors) => {
                     if (errors) {
                         message.error(errors[0].message);
@@ -143,6 +141,7 @@ export default function Page(props) {
 
     //富文本--不能为空
     function richTextCheck(rule, value) {
+    
         //去标签
         let regex = /(<([^>]+)>)/ig
         let noHtmlVal=value.toString('html').replace(regex, '')
@@ -182,99 +181,87 @@ export default function Page(props) {
     return (
         <>
             <Form
+                className='form'
+                name="form_content"
+                initialValues={{remember: true}}
                 onFinish={onFinish}
-                name="basic"
+                labelAlign={'center'}
+                fontSize="17px"
+                labelCol={{span: 12}}
+                wrapperCol={{span: 16}}
             >
-                <Layout>
+                <Layout style={{backgroundColor:"white"}}>
+                        <Breadcrumb  className={indexCss.head_bread} separator="" >
+                        <Breadcrumb.Item>
+                        <Link to="/commander.WorkingTable/BasicList" className="watchkeerper_headgzt"><b>工作台</b></Link>
+                        <Breadcrumb.Separator />
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                        <Link to="/knowledge.Knowledge/Create" className="watchkeerper_headgzt"><b>知识库发布</b></Link>
+                        <Breadcrumb.Separator />
+                        </Breadcrumb.Item>
+                        </Breadcrumb>
+                </Layout>
                     <Content className={indexCss.richText}>
-                        <h2>知识库发布</h2>
-                    <div className={indexCss.contentArea}>
-                            <div className={indexCss.header_right}>
-                                <Row>
-                                    <Col span={4}>
-                                        <Form.Item
-                                            label="书名"
-                                            name="bookName"
-                                            rules={[{required: true, message: '书名不能为空'}]}
-                                        >
-                                            <Input placeholder='书名'/>
-                                        </Form.Item>
-                                    </Col>
-                                    </Row>
-                                    <Row>
-                                    <Col span={4}>
-                                        <Form.Item
-                                        label="作者："
-                                            name="author"
-                                            rules={[{required: true, message: '作者不能为空'}]}
-                                        >
-                                            <Input placeholder='作者'/>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-                            </div>
-                        </div>
                         <div className={indexCss.contentArea}>
-                            <Row>
-                                <Col span={4}>
+                            <Row className={indexCss.text} style={{marginTop:"35px"}}>
+                                    <Col span={8}>
+                                        <Form.Item
+                                            label="标题"
+                                            name="title"
+                                            wrapperCol={{span:20,offset:7}}
+                                            labelCol={{span:formCol_labelCol}}
+                                            rules={[{required: true, message: '标题不能为空'}]}
+                                        >
+                                            <Input className={indexCss.input} placeholder='标题'/>
+                                        </Form.Item>
+                                    </Col>
+                            </Row>
+                            <Row className={indexCss.text}>
+                                <Col span={8}>
                                     <Form.Item
-                                    label="书类："
+                                        label="分类："
                                         name="bookType"
-                                        rules={[{required: true, message: '书类不能为空'}]}
+                                        rules={[{required: true, message: '分类不能为空'}]}
+                                        wrapperCol={{span: formCol_wrapperCol,offset:7}}
+                                        labelCol={{span:formCol_labelCol}}
                                     >
                                         <Select
+                                            className={indexCss.select}
                                             showSearch
-                                            style={{width: '84%'}}
-                                            placeholder="书类"
-                                            optionFilterProp="children"
-                                            // onChange={onChange}
+                                            placeholder="分类"
                                             filterOption={(input, option) =>
                                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                             }
                                         >
-                                            <Option value="POLICEKNOWLEDGEBASE_A">类型A</Option>
-                                            <Option value="POLICEKNOWLEDGEBASE_B">类型B</Option>
-                                            <Option value="POLICEKNOWLEDGEBASE_C">类型C</Option>
-                                            <Option value="POLICEKNOWLEDGEBASE_D">类型D</Option>
-                                            <Option value="POLICEKNOWLEDGEBASE_E">类型E</Option>
+                                            <Option value="POLICEKNOWLEDGEBASE_A">交通</Option>
+                                            <Option value="POLICEKNOWLEDGEBASE_B">消防</Option>
+                                            <Option value="POLICEKNOWLEDGEBASE_C">刑事</Option>
+                                            <Option value="POLICEKNOWLEDGEBASE_D">治安</Option>
+                                            <Option value="POLICEKNOWLEDGEBASE_E">人口管理</Option>
                                         </Select>
                                     </Form.Item>
 
                                 </Col>
                                 </Row>
-                                <Row>
-                                    <Col span={4}>
+                                    <Row className={indexCss.text}>
+                                        <Col>
                                         <Form.Item
-                                            label="发布人："
-                                            name="userName"
-                                            style={{width: '87%'}}
-                                            rules={[{required: true, message: '发布人不能为空'}]}
-                                        >
-                                            <Input placeholder='发布人'/>
+                                        label="知识库内容"
+                                        name="content"
+                                        labelCol={{span: 100}}
+                                        rules={[{required: true, message: ' '}, {validator: richTextCheck}]}
+                                        wrapperCol={{span:1000,offset:3}}
+                                    >
+                                        <RichText onChange={(e) => {
+                                        }} placeholer={'请输入知识库内容'}/>
                                         </Form.Item>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <div className={indexCss.richTextContentArea}>
-                            <Form.Item
-                                label="内容："
-                                name="content"
-                                rules={[{validator:richTextCheck}]}
-                            >
-                                <RichText onChange={(e)=>{}}/>
-                            </Form.Item>
-                        </div>
-                                </Row>
-                        </div>
-                                
-                        
-                    </Content>
-                    <Content>
-                        <div style={{'background': 'white'}}>
-                            <Row>
+                                        </Col>
+                                    </Row>
+                            <Row className={indexCss.text}>
                                 <Col span={4} offset={1}>
                                 <Form.Item
-                                            label={<div style={{ 'font-size':'18px','font-weight':'bold'}}>附件:</div>}
+                                            label="附件"
                                             name="annexCreate"
                                             rules={[{required: true,message:"请先上传附件"}]}
                                             valuePropName="file"
@@ -291,17 +278,16 @@ export default function Page(props) {
                                             </Upload>
                                         </Form.Item>
                                 </Col>
-                                <Col span={2}>
+                                <Col span={2} offset={6}>
                                     <Form.Item>
                                         <Button type="primary" htmlType="submit">
-                                            确定
+                                            发送
                                         </Button>
                                     </Form.Item>
-                                </Col>
+                                </Col> 
                             </Row>
                         </div>
                     </Content>
-                </Layout>
             </Form>
         </>
     )

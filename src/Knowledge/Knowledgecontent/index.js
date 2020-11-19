@@ -1,131 +1,145 @@
 //react
 import React,{useContext,useState} from 'react'
-import {SessionContext} from 'funweb-lib';
-import {Redirect} from 'react-router-dom'
-
 //antd
-import {Layout, Input, Row, Col, Select, Button, Form,message,Link} from 'antd';
+import {Layout, Input, Row, Col, Select, Button, Form,message,Link,Breadcrumb,List} from 'antd';
+//graphql
+import {QueryRenderer, graphql} from 'react-relay';
+import {ModalLink, SessionContext} from 'funweb-lib';
+//css
+import indexCss from './css/index.css'
+//moment
+import moment from 'moment'
+//mutation
+const query=graphql`
+query Knowledgecontent_Query($id: ID!) {
+    knowledge {
+      policeKnowledgeBaseQuery(id: $id) {
+        id
+        title
+        content
+        createdAt
+      }
+    }
+    viewer {
+      id
+      user {
+        ... on Employee {
+          id
+          name
+        }
+      }
+    }
+  }
+  
+  `
+
+
 //页面
-
-
 export default function Page(props) {
-    console.log(props);
-    const col_lab_span = 5
-    const col_wrapper_span = 15
-    //表单提交
-    const onFinish = (formInfo) => {
-        //排序格式化
-        formInfo.order?
-            formInfo.order=parseInt(formInfo.order)
-            :
-            formInfo.order=0
-        //状态格式化
-        formInfo.status===true?formInfo.status='ENABLE':formInfo.status='DISABLE'
-        //封面格式化
-        console.log('formInfo.pic',formInfo.pic);
-        formInfo.pic?
-            (formInfo.pic=formInfo.pic.fileList?formInfo.pic.fileList[0].response.singleUpload.hash:formInfo.pic)
-            :
-            formInfo.pic=''
-        console.log('Success:', formInfo);
-        //附件格式化
-        if(formInfo.annexCreate){
-            formInfo.annexCreate=formInfo.annexCreate.map(val=>{
-                if(val.response)
-                    return{
-                        url:val.url,
-                        name:val.name
-                    }
-                else
-                    return{
-                        url:val.url,
-                        name:val.name
-                    }
-            })
-        }
-        else {
-            formInfo.annexCreate=[]
-        }
-
-    }
-
-
-    //富文本--不能为空
-    function richTextCheck(rule, value) {
-        //去标签
-        let regex = /(<([^>]+)>)/ig
-        let noHtmlVal=value.toString('html').replace(regex, '')
-        
-        let flag=false;//默认不通过
-
-        if(noHtmlVal===''){
-            return Promise.reject('请输入具体的内容');
-        }
-        else{
-            //判断是否全是空格
-            let tmpArr=noHtmlVal.split(';')
-            for(let i=0;i<tmpArr.length;i++){
-                if(tmpArr[i]!==' &nbsp'&&i!==tmpArr.length-1&&tmpArr[i]!=='&nbsp'){
-                    flag=true
-                }
-                if(i===tmpArr.length-1&&flag===false){
-                    tmpArr[tmpArr.length-1]===''?flag=false:flag=true
-                }
-            }
-
-        }
-        if(flag)
-            return Promise.resolve();
-        else
-            return Promise.reject('请输入具体的内容');
-    }
+    const io=props.query.get('id')
+    console.log(io);
+    const session = useContext(SessionContext);
+    const [pageNum, setPageNum] = useState('1');//页码
     return (
-            <>
-                    <Row className='content'>
-                        <Col span={24}>
-                            <Row className='content_top clearfix'>
-                                <Col span={0.5} className="basic_icon"></Col>
-                                <Col span={23.5} className="basic_tit"><b>详情</b></Col>
-                            </Row>
-                        </Col>
-                    </Row>
+    <QueryRenderer
+        //环境设置
+        environment={session.environment}
+        //查询语句
+        query={query}
+        variables={{
+            id:io
+        }}
+        //查询过程
+        render={({error, props, retry}) => {
+            
+            if (error) {//error
+                return (
                     <div>
-                        <Row>
-                            <Col span={col_wrapper_span} style={{"margin-top": "20px"}}>
-                                <b>{props.bookName}</b>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={col_lab_span} style={{"margin-top": "20px"}}>
-                                <b>作者</b>
-                            </Col>
-                            <Col span={col_wrapper_span} style={{"margin-top": "20px"}}>
-                                <b>{props.author}</b>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={col_lab_span} style={{"margin-top": "20px"}}>
-                                <b>书类:</b>
-                            </Col>
-                            <Col span={col_wrapper_span} style={{"margin-top": "20px"}}>
-                                <b>{props.bookType}</b>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={col_lab_span} style={{"margin-top": "20px"}}>
-                                <b>内容:</b>
-                            </Col>
-                            <Col span={col_wrapper_span} style={{"margin-top": "20px"}}>
-                                <b>{props.content}</b>
-                            </Col>
-                        </Row>
-                        <Link to='/knowledge.Knowledge/List'>
-                            <Button type='primary' className='progress_content_btn'>
-                                <b>返回</b>
-                            </Button>
-                        </Link>
+                        <h1>Error!</h1><br/>{error.message}
+                    </div>)
+            }else{
+                console.log(props);
+                return (
+                    < Detail
+                       {...props}
+                        
+                    />
+                )
+            }
+            }
+            
+            
+            // return (//loading
+            //     <Spin tip={'加载中'}>
+            //         <div style={{marginTop: 400}}></div>
+            //     </Spin>
+    //         // )
+       }
+        
+    />);
+    }
+function Detail(props) {
+        let viewData =[];
+        if (props&&props.viewer){
+        
+            viewData = props.viewer.user;
+            console.log(props.viewer.user);
+        }
+        let cmssData ={};
+        if(props&&props.knowledge)
+        {
+        cmssData = props.knowledge.policeKnowledgeBaseQuery;
+        console.log(props.knowledge.policeKnowledgeBaseQuery);
+        }
+
+    return (
+            
+        <>
+            {/* <Layout style={{backgroundColor:"white"}}>
+                        <Breadcrumb  className={indexCss.head_bread} separator="" >
+                        <Breadcrumb.Item>
+                        <Link to="/commander.WorkingTable/BasicList" className="watchkeerper_headgzt"><b>工作台</b></Link>
+                        <Breadcrumb.Separator />
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                        <Link to="/knowledge.Knowledge/Content" className="watchkeerper_headgzt"><b>知识库详情</b></Link>
+                        <Breadcrumb.Separator />
+                        </Breadcrumb.Item>
+                        </Breadcrumb>
+                </Layout> */}
+            <div className={indexCss.content}>
+                <Row>
+                                <Col span={24}>
+                                    <Row span={24}>
+                                        <Col span={24}>
+                                            <span className={indexCss.title}>{cmssData.title}</span>
+                                        </Col>
+                                        <Col>
+                                            <span className={indexCss.name}>来源：{viewData.name}</span>
+                                        </Col>
+                                        <Col span={24}>
+                                            <span className={indexCss.time}>发布时间：{moment(cmssData.createdAt).utc().add(8, 'hours').format('YYYY-MM-DD HH:mm')}</span>
+                                        </Col>                                                
+                                    </Row>
+                                    <Row style={{width: '100%',offset:30}}>
+                                                <Col>
+                                                    <span className={indexCss.title}>{cmssData.content}</span>
+                                                </Col>
+                                                {/* <Col className={indexCss.id}>
+                                                    <span>序号：{cmssData.id}</span>
+                                                </Col> */}
+                                    </Row>
+
+                                        <Button  type="primary" htmlType="submit">
+                                            返回
+                                        </Button>
+                                    
+                                </Col>
+                    </Row>
+                    
             </div>
+                        
         </>
     )
-}
 
+}

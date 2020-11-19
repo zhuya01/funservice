@@ -1,19 +1,6 @@
-.pic{
-    height: 120px;
-    width: 190px;
-    text-align: center;
-    line-height: 120px;
-}
-.noPic{
-    height: 120px;
-    width: 190px;
-    text-align: center;
-    line-height: 120px;
-    background: url("../../../asseets/img/noPic.jpg") no-repeat;
-    background-size: contain;
-}
 .title{
-    text-align: center;
+    margin:0px 0px 0px 700px;
+    font-size: 25px;
 }
 .abstract{
     display: inline-block;
@@ -77,4 +64,23 @@
     overflow: hidden;
     height: 510px;
     margin-bottom: 15px;
+}
+.content{
+    background-color: white;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+.name{
+    color: black;
+    margin: 0px 0px 0px 30px
+}
+.time{
+    margin: 0px 0px 0px 30px
+}
+.id{
+    margin: 0px 0px 20px 700px
+}
+button{
+    margin: 0px 0px 40px 30px
 }

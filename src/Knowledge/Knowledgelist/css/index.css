@@ -1,22 +1,9 @@
-.pic{
-    height: 120px;
-    width: 190px;
-    text-align: center;
-    line-height: 120px;
-}
-.noPic{
-    height: 120px;
-    width: 190px;
-    text-align: center;
-    line-height: 120px;
-    background: url("../../../asseets/img/noPic.jpg") no-repeat;
-    background-size: contain;
-}
 .title{
-
+    font-size: 18px;
+    color:black;
+    margin: 0px 0px 20px 0px;
 }
 .abstract{
-    display: inline-block;
     width: 95%;
     overflow: hidden;
     word-break: break-word;
@@ -27,4 +14,42 @@
 .action{
     line-height: 120px;
     font-size: 15px;
+}
+.head_bread{
+    font-size: 18px;
+    margin: 17px 20px 15px 30px;
+    background-color: white;
+}
+.list{
+    background-color:white;
+    
+}
+.id{
+    margin: 20px 10px 30px 800px;
+}
+.row{
+    margin: 20px 10px 0px 35px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+.time{
+    margin: 10px 0px 0px 0px;
+}
+.button{
+    color:black;
+    margin: 20px 0px 0px 0px;
+}
+._39L79oV5nMBs8NmbA_h7RV{
+    margin-right: 14px;
+    position: relative;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    background: url(/app/web/commander/media/查阅.c5443cbc.png) no-repeat;
+    background-size: cover;
+}
+.name{
+    margin: 20px 10px 30px 300px;
+
 }
