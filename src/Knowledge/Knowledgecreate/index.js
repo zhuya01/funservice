@@ -14,6 +14,37 @@ import RichText from './components/richText'
 import createBase from './mutations/createBase'
 import updateBase from './mutations/updateBase'
 import UploadPackage from "./mutations/UploadPackage";
+//graphql
+import {QueryRenderer, graphql} from 'react-relay';
+const mutation=graphql`
+mutation Knowledgecreate_Mutation(
+    $annexCreate:[knowledgeFileInput]!,
+    $content: String,
+    $title: String!,
+    $createTime:DateTime
+  ) {
+    viewer {
+      id
+      username
+      user {
+        ... on Employee {
+          id
+          name
+        }
+      }
+    }
+    createPoliceKnowledgeBase(
+      annexCreate:$annexCreate, 
+      title:$title, 
+      content:$content, 
+      createTime:$createTime) {
+      content
+      createdAt
+      id
+      title
+    }
+  }
+  `
 
 const {Content} = Layout;
 const {Option} = Select;
@@ -119,6 +150,7 @@ export default function Page(props) {
         }
         else {
             //发布知识库
+            console.log(formInfo)
             createBase(formInfo, session.environment, (response, errors) => {
                     if (errors) {
                         message.error(errors[0].message);
@@ -208,7 +240,7 @@ export default function Page(props) {
                                         <Form.Item
                                             label="标题"
                                             name="title"
-                                            wrapperCol={{span:20,offset:7}}
+                                            wrapperCol={{span:19,offset:7}}
                                             labelCol={{span:formCol_labelCol}}
                                             rules={[{required: true, message: '标题不能为空'}]}
                                         >
@@ -216,7 +248,7 @@ export default function Page(props) {
                                         </Form.Item>
                                     </Col>
                             </Row>
-                            <Row className={indexCss.text}>
+                            {/* <Row className={indexCss.text}>
                                 <Col span={8}>
                                     <Form.Item
                                         label="分类："
@@ -242,28 +274,28 @@ export default function Page(props) {
                                     </Form.Item>
 
                                 </Col>
-                                </Row>
-                                    <Row className={indexCss.text}>
-                                        <Col>
-                                        <Form.Item
-                                        label="知识库内容"
-                                        name="content"
-                                        labelCol={{span: 100}}
-                                        rules={[{required: true, message: ' '}, {validator: richTextCheck}]}
-                                        wrapperCol={{span:1000,offset:3}}
-                                    >
-                                        <RichText onChange={(e) => {
-                                        }} placeholer={'请输入知识库内容'}/>
-                                        </Form.Item>
-                                        </Col>
-                                    </Row>
+                            </Row> */}
                             <Row className={indexCss.text}>
-                                <Col span={4} offset={1}>
+                                        <Col>
+                                            <Form.Item
+                                                label="知识库内容"
+                                                name="content"
+                                                labelCol={{span: 100}}
+                                                wrapperCol={{span:1000,offset:3}}
+                                                rules={[{required: true}, {validator: richTextCheck}]}
+                                            >
+                                                <RichText onChange={(e) => {}} placeholer={'请输入知识库内容'}/>
+                                            </Form.Item>
+                                        </Col>
+                            </Row>
+                            <Row  className={indexCss.annex}>
+                                <Col>
                                 <Form.Item
                                             label="附件"
                                             name="annexCreate"
                                             rules={[{required: true,message:"请先上传附件"}]}
                                             valuePropName="file"
+                                            labelCol={{span: 100}}
                                             getValueFromEvent={(e) => {
                                                 return e && e.fileList && e.fileList.filter((value => value.status === 'done')).map(value => {
                                                     return {url: value.response.singleUpload.hash, name: value.originFileObj.name}
@@ -271,9 +303,11 @@ export default function Page(props) {
                                             }}
                                         >
                                             <Upload  {...uploadprops} >
-                                                <Button  style={{'width': '100%'}}>
-                                                    上传附件
-                                                </Button>
+                                                <Col className={indexCss.btn}>
+                                                    <Button>
+                                                        上传附件
+                                                    </Button>
+                                                </Col>
                                             </Upload>
                                         </Form.Item>
                                 </Col>

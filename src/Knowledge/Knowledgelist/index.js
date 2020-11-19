@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {ModalLink, SessionContext} from 'funweb-lib';
 //antd
-import {List, Row, Col,Button,Breadcrumb,Layout} from 'antd';
+import {List, Row, Col,Button,Breadcrumb,Layout,Divider} from 'antd';
 //css
 import indexCss from './css/index.css'
 //graphql
@@ -123,6 +123,7 @@ function Page(props) {
 
     return (
         <>
+                
                 <Layout style={{backgroundColor:"white"}}>
                         <Breadcrumb  className={indexCss.head_bread} separator="" >
                         <Breadcrumb.Item>
@@ -139,7 +140,15 @@ function Page(props) {
                         </Breadcrumb.Item>
                         </Breadcrumb>
                 </Layout>
-        
+                <Layout >
+                    <div  className={indexCss.create}>
+                    <Link  className={indexCss.new} to="/knowledge.Knowledge/Create">
+                        <b>新建知识库</b><Divider />
+                    </Link>
+                    
+                    </div>
+                </Layout>
+                
             <List
                     className={indexCss.list}
                     dataSource={cmssData}

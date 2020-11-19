@@ -2,23 +2,30 @@ import {graphql, commitMutation} from 'react-relay';
 
 const mutation = graphql`
 mutation createBase_Mutation(
-  $annexCreate: [knowledgeFileInput]!, 
+  $annexCreate:[knowledgeFileInput]!,
   $content: String,
-	$createTime:DateTime,
-  $title:String!
+  $title: String!,
+  $createTime:DateTime
 ) {
+  viewer {
+    id
+    username
+    user {
+      ... on Employee {
+        id
+        name
+      }
+    }
+  }
   createPoliceKnowledgeBase(
-		content: $content, 
-    annexCreate: $annexCreate, 
-    createTime:$createTime, 
-    title:$title) {
+    annexCreate:$annexCreate, 
+    title:$title, 
+    content:$content, 
+    createTime:$createTime) {
     content
     createdAt
     id
-    annexCreate {
-      name
-      url
-    }
+    title
   }
 }
 
@@ -37,9 +44,7 @@ export default function createBase(
             variables: {
                 "annexCreate":formInfo.annexCreate,
                 "title":formInfo.title,
-                "userName":formInfo.userName,
-                "bookType":formInfo.bookType,
-                "contnet":formInfo.contnet,
+                "content":formInfo.content,
                 "createTime":formInfo.createTime
             },
         }

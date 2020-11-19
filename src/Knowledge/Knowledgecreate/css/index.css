@@ -66,15 +66,20 @@
         color: rgba(0,0,0,.85);
         border-radius: 8px;
         text-overflow: ellipsis;
-        
-        
 }
 select{
         height: 70px;
         line-height: 40px;
-        border-radius: 8px;
+        border-radius: unset;
         padding: 0px 12px;
 }
 .ct{
     margin: 0px 0px 0px 330px;
+}
+.annex{
+    text-align:left;
+    margin: 0px 0px 0px 30px;
+}
+.btn{
+    margin: 0px 0px 0px 128px;
 }

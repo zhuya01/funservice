@@ -1,7 +1,8 @@
 //react
 import React,{useContext,useState} from 'react'
+import {Link} from 'react-router-dom'
 //antd
-import {Layout, Input, Row, Col, Select, Button, Form,message,Link,Breadcrumb,List} from 'antd';
+import {Layout, Input, Row, Col, Select, Button, Form,message,Breadcrumb,List} from 'antd';
 //graphql
 import {QueryRenderer, graphql} from 'react-relay';
 import {ModalLink, SessionContext} from 'funweb-lib';
@@ -78,6 +79,7 @@ export default function Page(props) {
         
     />);
     }
+    
 function Detail(props) {
         let viewData =[];
         if (props&&props.viewer){
@@ -95,18 +97,27 @@ function Detail(props) {
     return (
             
         <>
-            {/* <Layout style={{backgroundColor:"white"}}>
-                        <Breadcrumb  className={indexCss.head_bread} separator="" >
-                        <Breadcrumb.Item>
-                        <Link to="/commander.WorkingTable/BasicList" className="watchkeerper_headgzt"><b>工作台</b></Link>
-                        <Breadcrumb.Separator />
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item>
-                        <Link to="/knowledge.Knowledge/Content" className="watchkeerper_headgzt"><b>知识库详情</b></Link>
-                        <Breadcrumb.Separator />
-                        </Breadcrumb.Item>
-                        </Breadcrumb>
-                </Layout> */}
+                        <Layout style={{backgroundColor:"white"}}>
+
+                            <Breadcrumb  className={indexCss.head_bread} separator="" >
+
+                            <Breadcrumb.Item>
+                            <Link to="/commander.WorkingTable/BasicList" className="watchkeerper_headgzt"><b>工作台</b></Link>
+                            <Breadcrumb.Separator />
+                            </Breadcrumb.Item>
+
+                            <Breadcrumb.Item>
+                            <Link to="/knowledge.Knowledge/Create" className="watchkeerper_headgzt"><b>知识库发布</b></Link>
+                            <Breadcrumb.Separator />
+                            </Breadcrumb.Item>
+
+                            <Breadcrumb.Item>
+                            <Link to="/knowledge.Knowledge/List" className="watchkeerper_headgzt"><b>知识库列表</b></Link>
+                            <Breadcrumb.Separator />
+                            </Breadcrumb.Item>
+
+                            </Breadcrumb>
+                        </Layout>
             <div className={indexCss.content}>
                 <Row>
                                 <Col span={24}>
@@ -116,24 +127,22 @@ function Detail(props) {
                                         </Col>
                                         <Col>
                                             <span className={indexCss.name}>来源：{viewData.name}</span>
-                                        </Col>
-                                        <Col span={24}>
                                             <span className={indexCss.time}>发布时间：{moment(cmssData.createdAt).utc().add(8, 'hours').format('YYYY-MM-DD HH:mm')}</span>
-                                        </Col>                                                
+                                        </Col>                                               
                                     </Row>
-                                    <Row style={{width: '100%',offset:30}}>
-                                                <Col>
-                                                    <span className={indexCss.title}>{cmssData.content}</span>
-                                                </Col>
+                                    <Row>
+                                    <Col span={24}>
+                                        <div className={indexCss.txt} dangerouslySetInnerHTML={{__html: cmssData.content}}/>
+                                    </Col>
                                                 {/* <Col className={indexCss.id}>
                                                     <span>序号：{cmssData.id}</span>
                                                 </Col> */}
                                     </Row>
-
-                                        <Button  type="primary" htmlType="submit">
-                                            返回
-                                        </Button>
-                                    
+                                        <Link to="/knowledge.Knowledge/List">
+                                            <Button  type="primary" htmlType="submit">
+                                                返回
+                                            </Button>
+                                        </Link>
                                 </Col>
                     </Row>
                     

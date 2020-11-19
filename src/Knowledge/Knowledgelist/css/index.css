@@ -28,7 +28,7 @@
     margin: 20px 10px 30px 800px;
 }
 .row{
-    margin: 20px 10px 0px 35px;
+    margin: 0px 10px 0px 35px;
     padding-left: 20px;
     margin-bottom: 20px;
     box-shadow: 5px 5px 5px lightgrey;
@@ -52,4 +52,14 @@
 .name{
     margin: 20px 10px 30px 300px;
 
+}
+.create{
+    font-size: 18px;
+    margin:20px 0px 0px 0px;
+    background-color: white;
+}
+.new{
+    margin:0px 0px 0px 30px;
+    color: black;
+    
 }

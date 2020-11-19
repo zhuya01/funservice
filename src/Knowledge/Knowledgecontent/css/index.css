@@ -1,5 +1,5 @@
 .title{
-    margin:0px 0px 0px 700px;
+    margin:20px 0px 0px 700px;
     font-size: 25px;
 }
 .abstract{
@@ -66,6 +66,7 @@
     margin-bottom: 15px;
 }
 .content{
+    margin: 20px 0px 0px 0px;
     background-color: white;
     padding-left: 20px;
     margin-bottom: 20px;
@@ -76,11 +77,24 @@
     margin: 0px 0px 0px 30px
 }
 .time{
-    margin: 0px 0px 0px 30px
+    margin: 0px 0px 0px 1300px
 }
 .id{
     margin: 0px 0px 20px 700px
 }
 button{
     margin: 0px 0px 40px 30px
+}
+.message{
+    font-size: 17px;
+    margin: 20px 0px 20px 50px;
+}
+.head_bread{
+    font-size: 18px;
+    margin: 17px 20px 15px 30px;
+    background-color: white;
+}
+.txt{
+    font-size:24px ;
+    margin: 30px 50px 30px 50px;
 }
