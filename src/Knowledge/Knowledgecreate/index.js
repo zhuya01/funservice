@@ -169,7 +169,6 @@ export default function Page(props) {
         else
             return Promise.reject('请输入具体的内容');
 
-
     }
 
     //发布成功
